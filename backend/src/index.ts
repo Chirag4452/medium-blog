@@ -20,15 +20,17 @@ app.post('/api/v1/signup', async (c) => {
 	try {
 		const user = await prisma.user.create({
 			data: {
-				email: body.email,
-				password: body.password
+				username: body.username,
+				password: body.password,
+				name: body.name || null
 			}
 		});
 		const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
 		return c.json({ jwt });
 	} catch(e) {
+		console.error('Signup error:');
 		c.status(403);
-		return c.json({ error: "error while signing up" });
+		return c.json({ error: "error while signing up"});
 	}
 })
 
@@ -41,7 +43,7 @@ app.post('/api/v1/signin', async (c) => {
 	const body = await c.req.json();
 	const user = await prisma.user.findUnique({
 		where: {
-			email: body.email
+			username: body.username
 		}
 	});
 
@@ -54,7 +56,7 @@ app.post('/api/v1/signin', async (c) => {
 	return c.json({ jwt });
 })
 
-//Middleware
-app.post('/api/v1/blog/*')
+// Blog routes middleware (placeholder)
+// app.post('/api/v1/blog/*', ...)
 
 export default app
