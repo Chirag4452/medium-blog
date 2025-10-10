@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { userRouter } from './user'
+import { userRouter } from '../user'
 import { blogRouter } from './blog'
 
 type Env = {
