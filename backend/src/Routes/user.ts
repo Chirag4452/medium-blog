@@ -12,7 +12,7 @@ type Env = {
 
 export const userRouter = new Hono<{ Bindings: Env }>();
 
-userRouter.post('signup', async (c) => {
+userRouter.post('/signup', async (c) => {
 	const body = await c.req.json();
 	const { success } = signupInput.safeParse(body);
 	if (!success) {
@@ -42,7 +42,7 @@ userRouter.post('signup', async (c) => {
 })
 
 // Signin route
-userRouter.post('signin', async (c) => {
+userRouter.post('/signin', async (c) => {
 	const prisma = new PrismaClient({
 		datasourceUrl: c.env.DATABASE_URL	,
 	}).$extends(withAccelerate());
