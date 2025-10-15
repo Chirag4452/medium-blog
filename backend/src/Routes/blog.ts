@@ -117,6 +117,16 @@ blogRouter.get('/:id', async (c) => {
             where: {
                 id: Number(id)
             },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select:{
+                        name: true
+                    }
+                }
+            }
         })
         if (!blog) {
             return c.json({ message: 'Blog not found' }, 404)
