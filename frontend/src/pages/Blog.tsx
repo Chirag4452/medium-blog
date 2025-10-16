@@ -12,7 +12,11 @@ export const Blog = () => {
             loading ...
         </div>
     }
+    if (!blog) {
+        return <div>Blog not found</div>
+    }
+    
     return <div>
-        <FullBlog />
+        <FullBlog blog={blog}/>
     </div>
 }
